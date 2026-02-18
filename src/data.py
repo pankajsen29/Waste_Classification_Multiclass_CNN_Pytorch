@@ -1,8 +1,8 @@
 
 # data preprocessing
-
-from torch.utils.data import random_split
-from torchvision import transforms
+import torch
+from torch.utils.data import DataLoader, random_split
+from torchvision import datasets, transforms
 
 DATA_DIR = "data/RealWaste"
 
@@ -31,3 +31,63 @@ test_ds_transforms = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize(IMAGENET_MEAN, IMAGENET_STD)
 ])
+
+def get_dataloaders(batch_size=16, num_workers=2, seed=42):       
+        """
+        Loads dataset, applies transforms, splits into train/val/test,
+        and returns dataloaders + class info.
+        """
+
+        # Load full dataset
+        full_dataset = datasets.ImageFolder(root=DATA_DIR, transform=train_ds_transforms)
+        
+        #Check class mapping
+        #index assignment to each class folder is based on the alphabetical order of folder names
+        #print(full_dataset.class_to_idx) 
+
+        # ---- Class information (EXPOSED) ----
+        class_names = full_dataset.classes
+        num_classes = len(class_names)
+
+        # Split dataset (Train / Validation / Test)
+        train_size = int(0.7 * len(full_dataset))
+        val_size   = int(0.15 * len(full_dataset))
+        test_size  = len(full_dataset) - train_size - val_size
+
+        # Reproducible split (Without a fixed seed = different train/val/test splits every run)
+        generator = torch.Generator().manual_seed(seed)
+
+        train_dataset, val_dataset, test_dataset = random_split(
+            full_dataset,
+            [train_size, val_size, test_size],
+            generator=generator
+        )
+
+        # Apply correct transforms
+        val_dataset.dataset.transform = test_ds_transforms
+        test_dataset.dataset.transform = test_ds_transforms
+
+        # DataLoaders
+        train_loader = DataLoader(
+            train_dataset,
+            batch_size=batch_size,
+            shuffle=True,
+            num_workers=num_workers
+        )
+
+        val_loader = DataLoader(
+            val_dataset,
+            batch_size=batch_size,
+            shuffle=False,
+            num_workers=num_workers
+        )
+
+        test_loader = DataLoader(
+            test_dataset,
+            batch_size=batch_size,
+            shuffle=False,
+            num_workers=num_workers
+        )
+
+        return train_loader, val_loader, test_loader, class_names, num_classes
+    
