@@ -1,18 +1,20 @@
-
-# data preprocessing
+#########################################
+# Step 1: Dataset loading in PyTorch
+#########################################
+import os
 import torch
 from torch.utils.data import DataLoader, random_split
 from torchvision import datasets, transforms
 
 DATA_DIR = "data/RealWaste"
 
-#ImageNet normalization values
+#ImageNet normalization (mandatory for pretrained models)
 IMAGENET_MEAN = [0.485, 0.456, 0.406]
 IMAGENET_STD  = [0.229, 0.224, 0.225]
 
 
-#training transforms
-train_ds_transforms = transforms.Compose([
+#training transforms (with augmentation)
+train_transforms = transforms.Compose([
     transforms.RandomResizedCrop(224),
     transforms.RandomHorizontalFlip(),
     transforms.RandomRotation(15),
@@ -25,8 +27,8 @@ train_ds_transforms = transforms.Compose([
     transforms.Normalize(IMAGENET_MEAN, IMAGENET_STD)
 ])
 
-#Validation / Test transforms
-test_ds_transforms = transforms.Compose([
+#Validation / Test transforms (NO augmentation, only resize + normalize)
+test_transforms = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(),
     transforms.Normalize(IMAGENET_MEAN, IMAGENET_STD)
@@ -39,7 +41,7 @@ def get_dataloaders(batch_size=16, num_workers=2, seed=42):
         """
 
         # Load full dataset
-        full_dataset = datasets.ImageFolder(root=DATA_DIR, transform=train_ds_transforms)
+        full_dataset = datasets.ImageFolder(root=DATA_DIR, transform=train_transforms)
         
         #Check class mapping
         #index assignment to each class folder is based on the alphabetical order of folder names
@@ -64,8 +66,8 @@ def get_dataloaders(batch_size=16, num_workers=2, seed=42):
         )
 
         # Apply correct transforms
-        val_dataset.dataset.transform = test_ds_transforms
-        test_dataset.dataset.transform = test_ds_transforms
+        val_dataset.dataset.transform = test_transforms
+        test_dataset.dataset.transform = test_transforms
 
         # DataLoaders
         train_loader = DataLoader(
@@ -90,4 +92,3 @@ def get_dataloaders(batch_size=16, num_workers=2, seed=42):
         )
 
         return train_loader, val_loader, test_loader, class_names, num_classes
-    

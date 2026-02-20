@@ -1,5 +1,5 @@
 ######## dataset ######
-from dataset import get_dataloaders
+from src.dataset import get_dataloaders
 
 BATCH_SIZE = 16
 NUM_WORKERS = 0
