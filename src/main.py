@@ -1,8 +1,23 @@
+
+DEBUG = True
+
+if DEBUG:
+    # NUM_EPOCHS = 2
+    # BATCH_SIZE = 8
+    # NUM_WORKERS = 0
+
+    NUM_EPOCHS = 10
+    BATCH_SIZE = 16
+    NUM_WORKERS = 0
+else:
+    NUM_EPOCHS = 20
+    BATCH_SIZE = 16
+    NUM_WORKERS = 2
+
+
+
 ######## dataset ######
 from src.dataset import get_dataloaders
-
-BATCH_SIZE = 16
-NUM_WORKERS = 0
 
 train_loader, val_loader, test_loader, class_names, num_classes = get_dataloaders(BATCH_SIZE, NUM_WORKERS)
 
