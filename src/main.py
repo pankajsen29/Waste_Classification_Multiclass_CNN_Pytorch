@@ -27,3 +27,19 @@ print(images.shape, labels.shape)
 #o/p: torch.Size([8, 3, 224, 224]) torch.Size([8])
 #images=a single batch pulled from train_loader
 #lables=targets for that batch
+
+######## model #########
+from src.model import (
+    get_resnet18,
+    get_loss_function,
+    get_optimizer,
+    get_device
+)
+
+device = get_device()
+model = get_resnet18(num_classes)
+model = model.to(device)
+
+#note-loss and optimizer are useless unless training
+criterion = get_loss_function()
+optimizer = get_optimizer(model)
