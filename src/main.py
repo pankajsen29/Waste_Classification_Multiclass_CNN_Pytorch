@@ -46,7 +46,9 @@ optimizer = get_optimizer(model)
 
 ######### train #######
 from src.train import (
-    train_model,
+    train_model, 
+    save_trained_model,
+    load_trained_model,
     dummy_training1, 
     dummy_training2,
     test_one_training_step
@@ -63,7 +65,18 @@ from src.train import (
 #TESTCODE
 #test_one_training_step(model, images, labels, optimizer, criterion)
 
-model, history = train_model(
+
+#for saving the model state
+from pathlib import Path
+save_dir = Path("checkpoints")
+save_dir.mkdir(parents=True, exist_ok=True)
+
+if DEBUG:
+    #existing model needs to passed, to load the saved weights from disc
+    model, history = load_trained_model(model, save_dir / "waste_seg_full_training_state.pth")
+
+else:
+    model, history = train_model(
         model,
         train_loader,
         val_loader,
@@ -72,3 +85,26 @@ model, history = train_model(
         device,
         num_epochs=NUM_EPOCHS
     )
+
+    #saving trained model weights
+    save_trained_model(model, optimizer, history, save_dir / "waste_seg_full_training_state.pth")
+
+    #saving the history to json
+    import json    
+    with open(save_dir / "waste_seg_history.json", "w") as f:
+        json.dump(history, f)
+
+    #loading the history from json
+    with open(save_dir / "waste_seg_history.json", "r") as f:
+        history = json.load(f)
+
+
+######### plots ##############
+from src.plots import plot_learning_curves
+
+plot_learning_curves(history)
+
+#how to interpret learning curves
+#Train (Down), Val (Down) : Good fit
+#Train (Down), Val (Up) :  Overfitting
+#Both high & flat : Underfitting

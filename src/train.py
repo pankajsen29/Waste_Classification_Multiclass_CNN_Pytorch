@@ -1,6 +1,6 @@
-#########################################
+####################################################################
 #Step 3: Writing the training loop (epochs + batches + validation)
-#########################################
+####################################################################
 
 import torch
 
@@ -114,6 +114,20 @@ def train_model(
     return model, history
 
 
+def save_trained_model(model, optimizer, history, filepath):
+    torch.save({
+    "model": model.state_dict(),
+    "optimizer": optimizer.state_dict(),
+    "history": history
+}, filepath)
+
+def load_trained_model(model, filepath):
+    checkpoint = torch.load(filepath)
+    model_state_dict = checkpoint["model"]
+    model.load_state_dict(model_state_dict)
+    history = checkpoint["history"]
+    return model, history
+
 #TESTCODE
 #dummy training function, it confirms:
 #Pretrained weights load
@@ -149,3 +163,4 @@ def test_one_training_step(model, images, labels, optimizer, criterion):
     outputs1, loss1 = train_one_batch(model, images, labels, optimizer, criterion)
     outputs2, loss2 = train_one_batch(model, images, labels, optimizer, criterion)
     print(f"loss1 = {loss1}, loss2 = {loss2}")
+    
