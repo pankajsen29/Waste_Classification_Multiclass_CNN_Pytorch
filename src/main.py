@@ -43,3 +43,32 @@ model = model.to(device)
 #note-loss and optimizer are useless unless training
 criterion = get_loss_function()
 optimizer = get_optimizer(model)
+
+######### train #######
+from src.train import (
+    train_model,
+    dummy_training1, 
+    dummy_training2,
+    test_one_training_step
+)
+#NUM_EPOCHS = 20
+
+#TESTCODE
+#dummy_training1(model, images)
+
+#TESTCODE
+#ensure optimizer, criterion are set
+#dummy_training2(model, labels, device, optimizer, criterion)
+
+#TESTCODE
+#test_one_training_step(model, images, labels, optimizer, criterion)
+
+model, history = train_model(
+        model,
+        train_loader,
+        val_loader,
+        criterion,
+        optimizer,
+        device,
+        num_epochs=NUM_EPOCHS
+    )
