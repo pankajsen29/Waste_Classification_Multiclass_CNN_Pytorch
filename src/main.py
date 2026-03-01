@@ -108,3 +108,14 @@ plot_learning_curves(history)
 #Train (Down), Val (Down) : Good fit
 #Train (Down), Val (Up) :  Overfitting
 #Both high & flat : Underfitting
+
+
+############# evaluate #################
+from src.evaluate import evaluate_model
+
+test_metrics = evaluate_model(
+    model,
+    test_loader,
+    device,
+    class_names
+)
