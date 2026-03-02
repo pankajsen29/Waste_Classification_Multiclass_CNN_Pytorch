@@ -55,9 +55,17 @@ def get_loss_function():
     return nn.CrossEntropyLoss()
 
 #lr=1e-3
-def get_optimizer(model, lr=0.001):
+def get_optimizer(model, optimizer_name="adam", lr=0.001):
     """
     Optimizer that updates only trainable parameters (or only the classifier head (or unfrozen layers))
     """
     params_to_update = filter(lambda p: p.requires_grad, model.parameters())
-    return torch.optim.Adam(params_to_update, lr=lr)
+
+    if optimizer_name.lower() == "adam":
+        return torch.optim.Adam(params_to_update, lr=lr)
+
+    elif optimizer_name.lower() == "sgd":
+        return torch.optim.SGD(params_to_update, lr=lr, momentum=0.9)
+
+    else:
+        raise ValueError("Unsupported optimizer")

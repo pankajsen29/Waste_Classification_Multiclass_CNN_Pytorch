@@ -37,6 +37,8 @@ from src.model import (
 )
 
 device = get_device()
+
+'''
 model = get_resnet18(num_classes)
 model = model.to(device)
 
@@ -97,8 +99,10 @@ else:
     #loading the history from json
     with open(save_dir / "waste_seg_history.json", "r") as f:
         history = json.load(f)
+'''
 
 
+'''
 ######### plots ##############
 from src.plots import plot_learning_curves
 
@@ -108,8 +112,29 @@ plot_learning_curves(history)
 #Train (Down), Val (Down) : Good fit
 #Train (Down), Val (Up) :  Overfitting
 #Both high & flat : Underfitting
+'''
 
+############## tuning ###################
+from src.tuning import hyperparameter_search
 
+results = hyperparameter_search(
+    train_loader=train_loader,
+    val_loader=val_loader,
+    device=device,
+    num_classes=num_classes,
+    learning_rates=[1e-4, 1e-3, 1e-2, 1e-1], #[0.0001, 0.001, 0.01, 0.1]
+    batch_sizes=[16, 32],
+    num_epochs=5
+)
+
+print(results)
+
+#What hyperparameters are tuned
+#Learning rate: how fast the model learns
+#Batch size: stability vs speed trade-off
+#Epochs: training duration
+
+'''
 ############# evaluate #################
 from src.evaluate import evaluate_model
 
@@ -119,3 +144,4 @@ test_metrics = evaluate_model(
     device,
     class_names
 )
+'''
