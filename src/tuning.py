@@ -1,8 +1,8 @@
-#########################################
+###############################
 #Step 5: Hyperparameter Tuning
-#########################################
+###############################
 
-from src.model import get_resnet18, get_loss_function, get_optimizer
+from src.model import get_model, get_loss_function, get_optimizer
 from src.train import train_model
 
 
@@ -21,8 +21,12 @@ def hyperparameter_search(
         for batch_size in batch_sizes:
             print(f"\nTesting lr={lr}, batch_size={batch_size}")
 
-            model = get_resnet18(num_classes).to(device)
+            #model = get_model("resnet18", num_classes).to(device) #baseline
+            model = get_model("resnet34", num_classes) #main CNN result
+            #model = get_model("efficientnet_b0", num_classes) #best final model
+
             criterion = get_loss_function()
+            #optimizer = get_optimizer(model, optimizer_name="sgd", lr=lr) #best for selected model
             optimizer = get_optimizer(model, optimizer_name="adam", lr=lr)
 
             model, history = train_model(

@@ -2,12 +2,12 @@
 DEBUG = True
 
 if DEBUG:
-    # NUM_EPOCHS = 2
-    # BATCH_SIZE = 8
-    # NUM_WORKERS = 0
+    #NUM_EPOCHS = 10
+    #BATCH_SIZE = 16
+    #NUM_WORKERS = 0
 
     NUM_EPOCHS = 10
-    BATCH_SIZE = 16
+    BATCH_SIZE = 32
     NUM_WORKERS = 0
 else:
     NUM_EPOCHS = 20
@@ -28,23 +28,28 @@ print(images.shape, labels.shape)
 #images=a single batch pulled from train_loader
 #lables=targets for that batch
 
+
+
 ######## model #########
 from src.model import (
-    get_resnet18,
+    get_model,
     get_loss_function,
     get_optimizer,
     get_device
 )
 
 device = get_device()
-
 '''
-model = get_resnet18(num_classes)
+model = get_model("resnet18", num_classes) #baseline
+#model = get_model("resnet34", num_classes) #main CNN result
+#model = get_model("efficientnet_b0", num_classes) #best final model
 model = model.to(device)
 
 #note-loss and optimizer are useless unless training
 criterion = get_loss_function()
-optimizer = get_optimizer(model)
+optimizer = get_optimizer(model, optimizer_name="adam", lr=0.001)
+
+
 
 ######### train #######
 from src.train import (
@@ -55,7 +60,6 @@ from src.train import (
     dummy_training2,
     test_one_training_step
 )
-#NUM_EPOCHS = 20
 
 #TESTCODE
 #dummy_training1(model, images)
@@ -99,8 +103,8 @@ else:
     #loading the history from json
     with open(save_dir / "waste_seg_history.json", "r") as f:
         history = json.load(f)
-'''
 
+'''
 
 '''
 ######### plots ##############
@@ -113,6 +117,7 @@ plot_learning_curves(history)
 #Train (Down), Val (Up) :  Overfitting
 #Both high & flat : Underfitting
 '''
+
 
 ############## tuning ###################
 from src.tuning import hyperparameter_search
@@ -133,6 +138,7 @@ print(results)
 #Learning rate: how fast the model learns
 #Batch size: stability vs speed trade-off
 #Epochs: training duration
+
 
 '''
 ############# evaluate #################
