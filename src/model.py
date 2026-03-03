@@ -115,9 +115,9 @@ def get_mobilenet_v2(num_classes, feature_extract=True):
 
 def get_model(model_name, num_classes, feature_extract=True):
     if model_name == "resnet18":
-        return get_resnet18(num_classes, feature_extract) #baseline
+        return get_resnet18(num_classes, feature_extract) #primary - main CNN result
     if model_name == "resnet34":
-        return get_resnet34(num_classes, feature_extract) #main CNN result
+        return get_resnet34(num_classes, feature_extract) #baseline
     elif model_name == "efficientnet_b0":
         return get_efficientnet_b0(num_classes, feature_extract) #best final model
     elif model_name == "mobilenet_v2":

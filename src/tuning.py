@@ -21,12 +21,12 @@ def hyperparameter_search(
         for batch_size in batch_sizes:
             print(f"\nTesting lr={lr}, batch_size={batch_size}")
 
-            #model = get_model("resnet18", num_classes).to(device) #baseline
-            model = get_model("resnet34", num_classes) #main CNN result
-            #model = get_model("efficientnet_b0", num_classes) #best final model
+            #model = get_model("resnet18", num_classes).to(device) #baseline(initial)
+            model = get_model("resnet34", num_classes) #main CNN result(initial)
+            #model = get_model("efficientnet_b0", num_classes) #best final model(initial)
 
             criterion = get_loss_function()
-            #optimizer = get_optimizer(model, optimizer_name="sgd", lr=lr) #best for selected model
+            #optimizer = get_optimizer(model, optimizer_name="sgd", lr=lr)
             optimizer = get_optimizer(model, optimizer_name="adam", lr=lr)
 
             model, history = train_model(

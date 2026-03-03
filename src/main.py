@@ -2,17 +2,22 @@
 DEBUG = True
 
 if DEBUG:
+    NUM_EPOCHS = 10
+    BATCH_SIZE = 32
+    NUM_WORKERS = 0
+
     #NUM_EPOCHS = 10
     #BATCH_SIZE = 16
     #NUM_WORKERS = 0
 
+else:
     NUM_EPOCHS = 10
     BATCH_SIZE = 32
     NUM_WORKERS = 0
-else:
-    NUM_EPOCHS = 20
-    BATCH_SIZE = 16
-    NUM_WORKERS = 2
+
+    # NUM_EPOCHS = 20
+    # BATCH_SIZE = 16
+    # NUM_WORKERS = 2
 
 
 
@@ -39,16 +44,15 @@ from src.model import (
 )
 
 device = get_device()
-'''
-model = get_model("resnet18", num_classes) #baseline
-#model = get_model("resnet34", num_classes) #main CNN result
+model = get_model("resnet18", num_classes) #primary - main CNN result
+#model = get_model("resnet34", num_classes) #baseline
 #model = get_model("efficientnet_b0", num_classes) #best final model
 model = model.to(device)
 
 #note-loss and optimizer are useless unless training
 criterion = get_loss_function()
 optimizer = get_optimizer(model, optimizer_name="adam", lr=0.001)
-
+#optimizer = get_optimizer(model, optimizer_name="sgd", lr=0.001)
 
 
 ######### train #######
@@ -104,7 +108,6 @@ else:
     with open(save_dir / "waste_seg_history.json", "r") as f:
         history = json.load(f)
 
-'''
 
 '''
 ######### plots ##############
@@ -118,7 +121,7 @@ plot_learning_curves(history)
 #Both high & flat : Underfitting
 '''
 
-
+'''
 ############## tuning ###################
 from src.tuning import hyperparameter_search
 
@@ -138,9 +141,9 @@ print(results)
 #Learning rate: how fast the model learns
 #Batch size: stability vs speed trade-off
 #Epochs: training duration
-
-
 '''
+
+
 ############# evaluate #################
 from src.evaluate import evaluate_model
 
@@ -150,4 +153,3 @@ test_metrics = evaluate_model(
     device,
     class_names
 )
-'''
