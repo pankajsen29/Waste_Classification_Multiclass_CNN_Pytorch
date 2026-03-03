@@ -143,6 +143,38 @@ Epoch [10/10]
 Train Loss: 0.6263 | Train Acc: 0.8001 || Val Loss: 0.6761 | Val Acc: 0.7640
 
 
+**Model: EfficientNet-B0, Optimizer: SGD, Batch Size: 32, Learning Rate: 0.001,  Number of Epochs: 10:**
+
+Epoch [1/10]
+Train Loss: 1.2779 | Train Acc: 0.5884 || Val Loss: 0.8364 | Val Acc: 0.7416
+
+Epoch [2/10]
+Train Loss: 0.8042 | Train Acc: 0.7444 || Val Loss: 0.7096 | Val Acc: 0.7654
+
+Epoch [3/10]
+Train Loss: 0.6783 | Train Acc: 0.7847 || Val Loss: 0.6610 | Val Acc: 0.7781
+
+Epoch [4/10]
+Train Loss: 0.6201 | Train Acc: 0.7940 || Val Loss: 0.6338 | Val Acc: 0.7893
+
+Epoch [5/10]
+Train Loss: 0.5606 | Train Acc: 0.8199 || Val Loss: 0.6179 | Val Acc: 0.7837
+
+Epoch [6/10]
+Train Loss: 0.5618 | Train Acc: 0.8202 || Val Loss: 0.5950 | Val Acc: 0.7879
+
+Epoch [7/10]
+Train Loss: 0.5154 | Train Acc: 0.8310 || Val Loss: 0.5694 | Val Acc: 0.8020
+
+Epoch [8/10]
+Train Loss: 0.4972 | Train Acc: 0.8331 || Val Loss: 0.5692 | Val Acc: 0.7992
+
+Epoch [9/10]
+Train Loss: 0.4882 | Train Acc: 0.8322 || Val Loss: 0.5493 | Val Acc: 0.8118
+
+Epoch [10/10]
+Train Loss: 0.4818 | Train Acc: 0.8391 || Val Loss: 0.5536 | Val Acc: 0.8048
+
 
 **<ins>Evaluation Results:</ins>**
 
@@ -173,4 +205,11 @@ Accuracy: 0.7241
 Precision: 0.7281
 Recall: 0.7241
 F1_score: 0.7230
+
+**Model: EfficientNet-B0, Optimizer: SGD, Batch Size: 32, Learning Rate: 0.01,  Number of Epochs: 10:**
+
+Accuracy: 0.7899
+Precision: 0.7910
+Recall: 0.7899
+F1_score: 0.7890
 
