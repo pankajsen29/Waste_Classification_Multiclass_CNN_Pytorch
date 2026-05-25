@@ -1,5 +1,100 @@
 # Waste_Classification_Multiclass_CNN_Pytorch
 
+**ABSTRACT**
+
+Improper waste segregation remains a major challenge in modern waste management systems, leading to inefficient recycling, increased environmental pollution and higher operational costs. This project addresses the waste segregation task as a computer vision image classification problem and formulated as a multi-class, single-label supervised learning task, where waste images are categorized into classes such as plastic, metal, glass, paper, food organic waste, and other materials using the RealWaste dataset. To achieve this objective, transfer learning is applied using pre-trained Convolutional Neural Network (CNN) architectures – ResNet34 as a baseline, ResNet18 as the primary model, and EfficientNet-B0 as the final optimized model which have demonstrated strong performance on ImageNet. By leveraging pre-trained weights from large-scale image datasets, these models are fine-tuned on the RealWaste dataset to learn material-specific visual features such as colour, texture and structural patterns to enable accurate classification. Performance is evaluated using standard classification metrics including accuracy, precision, recall and F1-score, with results indicating that transfer learning significantly improves convergence and overall classification performance. Among these evaluated models with RealWaste dataset, ResNet18 and EfficientNet-B0 showed strong overall performance, compared to the baseline ResNet34. The findings confirm that deep transfer learning approaches are highly effective for automated waste segregation and offer a practical solution for intelligent recycling systems.
+
+
+**MOTIVATION**
+
+This project is motivated by the desire to develop a real-world computer vision application that demonstrates the practical use of CNN-based deep learning concepts. Waste segregation presents a meaningful multi-class image classification problem, going beyond simple binary classification and offering a more realistic and challenging scenario. Improper waste sorting contributes to environmental pollution and reduces recycling efficiency, making it an important sustainability issue. With the availability of the RealWaste dataset, this problem provided an opportunity to apply transfer learning techniques using advanced CNN architectures. Personal interest in leveraging artificial intelligence for environmental sustainability further inspired the development of an automated waste classification system. 
+
+
+**INTRODUCTION**
+
+Effective recycling systems rely heavily on accurate waste segregation. However, conventional sorting methods depend largely on manual labour, which can be inconsistent, time-consuming, and costly. The integration of computer vision and deep learning offers a scalable alternative, capable of automatically identifying waste materials from images. In this project, waste segregation is addressed as a supervised image classification task using the RealWaste dataset. Deep Convolutional Neural Networks is applied to learn distinguishing visual characteristics of different waste categories. Instead of training models from scratch, transfer learning is utilized to leverage knowledge from large-scale datasets, enabling faster convergence and improved generalization. By adapting established architectures such as ResNet18, ResNet34, and EfficientNet-B0, the proposed system aims to provide a reliable and practical solution for intelligent waste management applications.
+
+
+**DATA COLLECTION AND PREPROCESSING**
+
+In supervised deep learning tasks, data collection and pre-processing form the foundation of model performance. Since supervised learning relies on labelled data, the quality, diversity, and correct annotation of the dataset directly influence the model’s ability to generalize. Therefore, the first step is to choose the right dataset of the expected quality. 
+
+For this project, the RealWaste dataset is chosen. It is a publicly available image dataset designed specifically for waste classification tasks. RealWaste is particularly well-suited for this task for several reasons. First, it reflects real-world waste scenarios, which improves the practical relevance of the trained model. Second, it supports a multi-class classification setup, aligning well with the objective of building a robust waste segregation system rather than a simple binary classifier. Third, the dataset size and class diversity make it appropriate for transfer learning using pre-trained CNN architectures such as ResNet, EfficientNet etc. Finally, the availability of labelled data ensures compatibility with supervised learning approaches, enabling effective fine-tuning and reliable performance evaluation.
+
+It is an image classification dataset with colour images of waste items across 9 major material types, collected within an authentic landfill environment. These images are released in 524x524 resolution. Under the proposed labels, image counts are as shown in Fig. 1 along with the other basic details. 
+
+<img width="626" height="308" alt="image" src="https://github.com/user-attachments/assets/cc7f304a-bff4-4937-a2f3-7525936f5a07" />
+
+Unlike synthetic or highly controlled datasets, RealWaste images are captured in realistic environments with variations in lighting conditions, background clutter, object orientation, and scale.
+
+Fig. 2 shows the class frequency distribution of the images.
+
+<img width="875" height="291" alt="image" src="https://github.com/user-attachments/assets/7eb907d1-39e7-4ded-98c2-3945dfa599dd" />
+
+The full dataset is then split into training (70%), validation (15%) and test (15%) sets before the pre-processing is applied. The splitting is done using a fixed seed of 42, which ensures that the split is always the same every time the code is run. The pre-processing typically includes data cleaning, resizing images to a fixed input dimension (to 224x224 for transfer learning based on ImageNet), normalization of pixel values (using the mean & standard deviation of ImageNet dataset) and data augmentation (such as rotation, flipping etc). Particularly the augmentation is done only for the training set which increases the training dataset by generating more but similar images, which is necessary if oversampling is to be applied to an unbalanced dataset. 
+
+The following specific augmentations are performed using TorchVision transforms:
+
+          o	RandomResizedCrop: Improves scale and position invariance.
+          
+          o	RandomHorizontalFlip: Makes model robust to left–right orientation changes.
+          
+          o	RandomRotation: Adds rotation invariance.
+          
+          o	ColorJitter: Improves robustness to lighting and colour variations.
+          
+          o	Lastly transformed to Tensor datatype for further processing.
+
+
+<img width="830" height="446" alt="image" src="https://github.com/user-attachments/assets/90d9ec16-23f8-4ca1-a2af-a6295cb79a3e" />
+
+These steps help improve convergence, reduce overfitting, and ensure that the model learns meaningful patterns rather than noise. Images need to be presented in batches during the training, as the whole dataset at once is not computationally feasible. Images can’t just be presented in their order, they need to be shuffled and presented in “mixed” batches.
+
+
+**MODEL SELECTION AND TRAINING INITIALIZATION**
+
+Based on recommendations for image classification, below three pretrained models were initially selected for this task of waste image classification:
+
+<img width="887" height="436" alt="image" src="https://github.com/user-attachments/assets/aa17de33-a76b-4a05-ad6a-bcdeffc809f0" />
+
+Hyperparameter tuning also were indicative about the choice of ResNet18 as baseline and ResNet34 as the primary model. 
+
+**Note**: Although ResNet18 was initially selected as the baseline due to its simpler architecture, experimental results on the RealWaste dataset (which is limited) showed that it outperformed ResNet34 across all evaluation metrics. Therefore, **ResNet18 is treated as the primary model** here, while **ResNet34 serves as the baseline for comparison**, highlighting the effectiveness of shallower architectures for this task.
+
+Due to the limited size of the dataset, a **transfer learning** approach was adopted using a pre-trained ResNet18 (also ResNet34 and EfficientNet-B0) model. Transfer learning enables leveraging rich feature representations learned from large-scale datasets, resulting in stronger performance and faster convergence. The convolutional base of ResNet18 is loaded with pre-trained weights and kept frozen to preserve the learned feature extraction capabilities. The final fully connected layer is replaced with a custom classifier tailored to the target number of classes (9 classes to be precise). Only this newly added classifier layer is trained, while the earlier layers remained unchanged. This approach reduces computational cost, accelerates training, and improves generalization, particularly when working with limited training data.
+
+The optimizer is configured to update only the trainable parameters by filtering layers with requires_grad=True, ensuring that only the intended (unfrozen) layers are optimized during training.
+
+
+**MODEL TRAINING AND VALIDATION EXPERIMENTS**
+
+The model training and validation are performed on a **local machine (with CPU) which took approximately ~1.5 hours**. The training phase is used to optimize the model parameters by minimizing the loss function, while the validation phase evaluates the model’s performance on unseen data during training. This helps monitor generalization ability and detect overfitting.
+
+      o	This process is done one by one for both selected models (ResNet18, ResNet34, and later EfficientNet-B0) for 10 number of epochs using the standard CNN training procedure. Also, each time a different optimizer (from Adam and SGD) is used for further evaluation.
+      
+      o	Other configuration based on the findings of hyperparameter training is set as below:
+      Batch size: 32, learning rate: 0.001 and the CrossEntropyLoss as the loss function.
+      
+      o	The steps of the training loop start as: for each epoch and for each batch in the training dataset, a forward pass is performed producing an output tensor of shape [batch size, number of classes].
+      
+      o	The loss is computed between predicted outputs and ground truth labels using the loss function.
+      
+      o	Backpropagation is carried out to compute gradients of the loss with respect to model parameters.
+      
+      o	The optimizer updates the model weights based on the computed gradients.
+      
+      o	For each epoch, the average training loss and average training accuracy are calculated and recorded.
+      
+      o	After each training epoch, validation is performed using the validation dataset.
+      
+      o	For each epoch and for each batch in the validation dataset, only a forward pass is executed without gradient computation or weight updates.
+      
+      o	The loss is computed to evaluate model performance, but no backpropagation is performed.
+      
+      o	For each epoch, the average validation loss and average validation accuracy are calculated and recorded.
+      
+      o	At the end of training, the trained model weights are saved as a checkpoint file to enable future evaluation, reproducibility, and potential further fine-tuning or deployment.
+
 
 **<ins>Tuning Results:</ins>**
 
