@@ -1,21 +1,23 @@
-# Waste_Classification_Multiclass_CNN_Pytorch
+# PROJECT TITILE
 
-**ABSTRACT**
+## Deep Learning Project for Waste Segregation Through Multiclass Image Classification using CNN and Pytorch:
+
+# ABSTRACT
 
 Improper waste segregation remains a major challenge in modern waste management systems, leading to inefficient recycling, increased environmental pollution and higher operational costs. This project addresses the waste segregation task as a computer vision image classification problem and formulated as a multi-class, single-label supervised learning task, where waste images are categorized into classes such as plastic, metal, glass, paper, food organic waste, and other materials using the RealWaste dataset. To achieve this objective, transfer learning is applied using pre-trained Convolutional Neural Network (CNN) architectures – ResNet34 as a baseline, ResNet18 as the primary model, and EfficientNet-B0 as the final optimized model which have demonstrated strong performance on ImageNet. By leveraging pre-trained weights from large-scale image datasets, these models are fine-tuned on the RealWaste dataset to learn material-specific visual features such as colour, texture and structural patterns to enable accurate classification. Performance is evaluated using standard classification metrics including accuracy, precision, recall and F1-score, with results indicating that transfer learning significantly improves convergence and overall classification performance. Among these evaluated models with RealWaste dataset, ResNet18 and EfficientNet-B0 showed strong overall performance, compared to the baseline ResNet34. The findings confirm that deep transfer learning approaches are highly effective for automated waste segregation and offer a practical solution for intelligent recycling systems.
 
 
-**MOTIVATION**
+# MOTIVATION
 
 This project is motivated by the desire to develop a real-world computer vision application that demonstrates the practical use of CNN-based deep learning concepts. Waste segregation presents a meaningful multi-class image classification problem, going beyond simple binary classification and offering a more realistic and challenging scenario. Improper waste sorting contributes to environmental pollution and reduces recycling efficiency, making it an important sustainability issue. With the availability of the RealWaste dataset, this problem provided an opportunity to apply transfer learning techniques using advanced CNN architectures. Personal interest in leveraging artificial intelligence for environmental sustainability further inspired the development of an automated waste classification system. 
 
 
-**INTRODUCTION**
+# INTRODUCTION
 
 Effective recycling systems rely heavily on accurate waste segregation. However, conventional sorting methods depend largely on manual labour, which can be inconsistent, time-consuming, and costly. The integration of computer vision and deep learning offers a scalable alternative, capable of automatically identifying waste materials from images. In this project, waste segregation is addressed as a supervised image classification task using the RealWaste dataset. Deep Convolutional Neural Networks is applied to learn distinguishing visual characteristics of different waste categories. Instead of training models from scratch, transfer learning is utilized to leverage knowledge from large-scale datasets, enabling faster convergence and improved generalization. By adapting established architectures such as ResNet18, ResNet34, and EfficientNet-B0, the proposed system aims to provide a reliable and practical solution for intelligent waste management applications.
 
 
-**DATA COLLECTION AND PREPROCESSING**
+# DATA COLLECTION AND PREPROCESSING
 
 In supervised deep learning tasks, data collection and pre-processing form the foundation of model performance. Since supervised learning relies on labelled data, the quality, diversity, and correct annotation of the dataset directly influence the model’s ability to generalize. Therefore, the first step is to choose the right dataset of the expected quality. 
 
@@ -51,7 +53,7 @@ The following specific augmentations are performed using TorchVision transforms:
 These steps help improve convergence, reduce overfitting, and ensure that the model learns meaningful patterns rather than noise. Images need to be presented in batches during the training, as the whole dataset at once is not computationally feasible. Images can’t just be presented in their order, they need to be shuffled and presented in “mixed” batches.
 
 
-**MODEL SELECTION AND TRAINING INITIALIZATION**
+# MODEL SELECTION AND TRAINING INITIALIZATION
 
 Based on recommendations for image classification, below three pretrained models were initially selected for this task of waste image classification:
 
@@ -66,7 +68,7 @@ Due to the limited size of the dataset, a **transfer learning** approach was ado
 The optimizer is configured to update only the trainable parameters by filtering layers with requires_grad=True, ensuring that only the intended (unfrozen) layers are optimized during training.
 
 
-**MODEL TRAINING AND VALIDATION EXPERIMENTS**
+# MODEL TRAINING AND VALIDATION EXPERIMENTS
 
 The model training and validation are performed on a **local machine (with CPU) which took approximately ~1.5 hours**. The training phase is used to optimize the model parameters by minimizing the loss function, while the validation phase evaluates the model’s performance on unseen data during training. This helps monitor generalization ability and detect overfitting.
 
@@ -264,7 +266,7 @@ Epoch [10/10]
 Train Loss: 0.4818 | Train Acc: 0.8391 || Val Loss: 0.5536 | Val Acc: 0.8048
 
 
-**EXPERIMENT RESULTS PLOTTING**
+# EXPERIMENT RESULTS PLOTTING
 
 The below graph (Fig. 4) depicts the train and validation loss across epochs:
 
@@ -301,7 +303,7 @@ The Accuracy vs Epochs graph (Fig. 5) depicts:
 The model shows good learning and reasonable generalization. Slight overfitting begins in later epochs, and the best validation performance appears around epoch 8–10.
 
 
-**HYPERPARAMETER TUNING**
+# HYPERPARAMETER TUNING
 
 Hyperparameter tuning plays a crucial role in deep learning models, as it directly affects convergence speed, model stability, and overall generalization performance. In the task of waste segregation using convolutional neural networks, appropriate selection of hyperparameters such as learning rate, batch size, number of epochs, and optimizer is essential to achieve reliable classification performance across multiple waste categories. Below are the values which were used to review the overall validation accuracies:
 
@@ -326,7 +328,7 @@ Note: Hyperparameter tuning was initially performed using a reduced number of ep
 <img width="741" height="319" alt="image" src="https://github.com/user-attachments/assets/21cfa5e0-1c6e-4a5a-8fc8-07923cfbe9d7" />
 
 
-**MODEL EVALUATION**
+# MODEL EVALUATION
 
 Model evaluation is performed exclusively on the test set to ensure an unbiased assessment of generalization performance. No additional training, hyperparameter tuning, or validation adjustments are conducted during this phase. The evaluation is carried out in inference mode, with gradients disabled and no weight updates applied, ensuring a pure forward-pass assessment of the trained models.
 
@@ -391,3 +393,68 @@ Recall: 0.7899
 F1_score: 0.7890
 
 
+# CONCLUSIONS
+
+This project aimed to address the challenge of waste segregation by developing an automated image classification system, contributing to a significant sustainability issue. Improper waste sorting reduces recycling efficiency and increases environmental impact; therefore, intelligent automation can support more accurate and scalable waste management solutions. By applying computer vision and transfer learning, this work demonstrates a practical approach for automatic waste classification.
+
+Three pre-trained Convolutional Neural Network (CNN) architectures such as ResNet34 as a baseline, ResNet18 as the primary model, and EfficientNet-B0 as the optimized model were evaluated and fine-tuned by experimenting with different optimizers (SGD and Adam), learning rates, batch sizes, and other hyperparameters. Among the tested models, ResNet18 and EfficientNet-B0 both achieved almost similar overall performance, confirming the effectiveness of transfer learning for this task.
+
+The proposed system has strong potential for real-world deployment in automated sorting facilities or smart waste management systems, helping reduce manual effort and classification errors. All resources and code are made publicly available to encourage further research and improvement. Considering the best achieved accuracy of 78.99% (with the chosen primary model), immediate further work can be combining datasets such as RealWaste, TrashNet, and TrashBox with advanced data augmentation techniques and with additional regularization strategies to train the model again to achieve better accuracy. Other future work may include developing fully deployable real-time systems utilizing the saved trained model. While promising results have been achieved, continued research can further enhance intelligent waste segregation technologies. 
+
+
+# SUPPLEMENTARY MATERIAL
+
+Supplementary material belonging to this project can be accessed as follows:
+
+**Dataset:**
+
+https://www.kaggle.com/datasets/joebeachcapital/realwaste/data
+
+Alternative link: https://github.com/sam-single/realwaste
+
+**ImageNet-pretrained weights for:**
+
+**ResNet18**: https://download.pytorch.org/models/resnet18-f37072fd.pth
+
+**ResNet34**:https://download.pytorch.org/models/resnet34-b627a593.pth
+
+**EfficientNet-B0**: https://download.pytorch.org/models/efficientnet_b0_rwightman-3dd342df.pth
+
+**Trained Models:**
+
+https://drive.google.com/drive/folders/1SIucKwq8YQzus_ybRob19HOHWgbNF05-?usp=drive_link
+
+
+# REFERENCES
+
+**RealWaste Dataset:**
+
+https://www.mdpi.com/2078-2489/14/12/633
+
+**Models and pre-trained weights:**
+
+https://docs.pytorch.org/vision/0.12/models.html
+
+**ResNet from Deep Residual Learning for Image Recognition:**
+
+https://arxiv.org/abs/1512.03385
+
+**PyTorch documentation of ResNet18:**
+
+https://docs.pytorch.org/vision/main/models/generated/torchvision.models.resnet18.html
+
+**PyTorch documentation of ResNet34:**
+
+https://docs.pytorch.org/vision/main/models/generated/torchvision.models.resnet34.html
+
+**PyTorch documentation of EfficientNet-B0:**
+
+https://docs.pytorch.org/vision/main/models/generated/torchvision.models.efficientnet_b0.html
+
+**TrashNet Dataset (Gary Thung): ~2,500 labelled images across 6 classes:**
+
+https://github.com/garythung/trashnet
+
+**TrashBox: ~17,785 images divided into seven classes:**
+
+https://github.com/nikhilvenkatkumsetty/TrashBox
