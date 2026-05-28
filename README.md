@@ -96,14 +96,7 @@ The model training and validation are performed on a **local machine (with CPU) 
       o	At the end of training, the trained model weights are saved as a checkpoint file to enable future evaluation, reproducibility, and potential further fine-tuning or deployment.
 
 
-**<ins>Tuning Results:</ins>**
-
-<img width="741" height="341" alt="image" src="https://github.com/user-attachments/assets/b5b0ce9c-f4d5-435f-89ee-b1ee6cd411b9" />
-<img width="741" height="320" alt="image" src="https://github.com/user-attachments/assets/50ab0edf-a4ab-422a-98ff-ec94d018185f" />
-<img width="741" height="319" alt="image" src="https://github.com/user-attachments/assets/21cfa5e0-1c6e-4a5a-8fc8-07923cfbe9d7" />
-
-
-**<ins>Training Results:</ins>**
+**<ins>Detailed Training Results with varied models and settings:</ins>**
 
 **Model: Resnet18, Optimizer: Adam, Batch Size: 32, Learning Rate: 0.001,  Number of Epochs: 10:**
 
@@ -271,7 +264,96 @@ Epoch [10/10]
 Train Loss: 0.4818 | Train Acc: 0.8391 || Val Loss: 0.5536 | Val Acc: 0.8048
 
 
-**<ins>Evaluation Results:</ins>**
+**EXPERIMENT RESULTS PLOTTING**
+
+The below graph (Fig. 4) depicts the train and validation loss across epochs:
+
+          o  Training loss steadily decreases: The model is learning patterns from the training data effectively.
+          
+          o  Validation loss also decreases initially: The model is generalizing well in the early epochs.
+          
+          o  Gap between train and validation loss appears after ~epoch 4–5: Indicates slight overfitting is beginning.
+          
+          o  Validation loss flattens around later epochs: Learning improvements slow down; model reaches near-optimal performance.
+          
+          o  Small fluctuation in validation loss near the end: Normal behaviour due to dataset variability but signals mild overfitting.
+
+
+<img width="430" height="352" alt="image" src="https://github.com/user-attachments/assets/39d3dc3c-4035-414e-b033-c541fed607ba" />
+
+Overall, the model is learning well with good generalization, but slight overfitting may start after mid-training. Early stopping around epoch 7–8 might be optimal.
+
+The Accuracy vs Epochs graph (Fig. 5) depicts:
+
+          o  Training accuracy increases steadily: The model is learning patterns effectively from the training data.
+          
+          o  Validation accuracy also improves over epochs: The model generalizes well to unseen data.
+          
+          o  Gap between training and validation accuracy appears after ~epoch 4–5: Indicates mild overfitting is starting.
+          
+          o  Validation accuracy stabilizes around 0.77–0.78: Performance improvement slows; model is reaching its generalization limit.
+          
+          o  No sharp drop in validation accuracy: No severe overfitting; training remains stable.
+
+
+<img width="407" height="341" alt="image" src="https://github.com/user-attachments/assets/bc0e544e-fa0b-4ebf-91b2-4a0559527ffe" />
+
+The model shows good learning and reasonable generalization. Slight overfitting begins in later epochs, and the best validation performance appears around epoch 8–10.
+
+
+**HYPERPARAMETER TUNING**
+
+Hyperparameter tuning plays a crucial role in deep learning models, as it directly affects convergence speed, model stability, and overall generalization performance. In the task of waste segregation using convolutional neural networks, appropriate selection of hyperparameters such as learning rate, batch size, number of epochs, and optimizer is essential to achieve reliable classification performance across multiple waste categories. Below are the values which were used to review the overall validation accuracies:
+
+Optimizers: **[Adam, SGD]**
+
+Learning Rates = **[1e-4, 1e-3, 1e-2, 1e-1]**
+
+Batch Sizes = **[16, 32]**
+
+Number of Epochs = **5**
+
+The recommended ranges for learning rate and batch size were used. With respect to the optimizers, Adam was selected due to its adaptive learning mechanism and faster convergence, making it suitable for limited training epochs. SGD is also commonly used in image classification, as it often provides strong generalization when properly tuned. The best performing hyperparameter setting for each of the models are highlighted in the below table:
+
+<img width="768" height="157" alt="image" src="https://github.com/user-attachments/assets/c3588564-f6e0-4ce6-8420-1ee0c7d2a789" />
+
+Note: Hyperparameter tuning was initially performed using a reduced number of epochs (5 to be precise) to efficiently compare configurations. After selecting the best settings, the final model is trained for a higher number of epochs (10 to be precise) to ensure proper convergence and stable performance evaluation.
+
+**<ins>Detailed Tuning Results:</ins>**
+
+<img width="741" height="341" alt="image" src="https://github.com/user-attachments/assets/b5b0ce9c-f4d5-435f-89ee-b1ee6cd411b9" />
+<img width="741" height="320" alt="image" src="https://github.com/user-attachments/assets/50ab0edf-a4ab-422a-98ff-ec94d018185f" />
+<img width="741" height="319" alt="image" src="https://github.com/user-attachments/assets/21cfa5e0-1c6e-4a5a-8fc8-07923cfbe9d7" />
+
+
+**MODEL EVALUATION**
+
+Model evaluation is performed exclusively on the test set to ensure an unbiased assessment of generalization performance. No additional training, hyperparameter tuning, or validation adjustments are conducted during this phase. The evaluation is carried out in inference mode, with gradients disabled and no weight updates applied, ensuring a pure forward-pass assessment of the trained models.
+
+Performance metrics are computed using the weighted averaging method **(average = "weighted")**, which accounts for class imbalance by weighting each class according to its support. This approach is particularly appropriate for multi-class classification tasks such as the RealWaste dataset, as it provides a more representative overall performance measure.
+
+Here is the test set performance for each of the baseline and primary model using the **“Adam”** optimizer:
+
+<img width="890" height="250" alt="image" src="https://github.com/user-attachments/assets/b4e57096-6db5-401a-900b-519c9834f7ca" />
+
+Here is the test set performance for each of the baseline and primary model using the “SGD” optimizer:
+
+<img width="894" height="261" alt="image" src="https://github.com/user-attachments/assets/bcb60831-9559-43a2-855e-3289fba109d2" />
+
+Clearly **ResNet18 with Adam optimizer outperformed** ResNet34 (with any optimizer) across all evaluation metrics. F1-score of 78.97 indicates the overall classification quality is solid and balanced.
+
+**Note**: Although ResNet34 is a deeper architecture, ResNet18 achieved better generalization performance on the RealWaste dataset. This suggests that model complexity must be matched appropriately to dataset size and task complexity, as deeper networks may lead to overfitting when training data is limited.
+
+Again, though based on the tuning results, EfficientNet-B0 (with SGD optimizer) was assumed to be best performing among all the models, the test set performance of EfficientNet-B0 model showed almost similar to the chosen primary model (Fig. 11).
+
+<img width="451" height="269" alt="image" src="https://github.com/user-attachments/assets/28de2e5d-71ae-49a7-bc2f-534354973ff8" />
+
+
+Higher values on the diagonal of the confusion matrix below (Fig. 12) indicates overall solid performance with the number of correctly classified samples for each class. **The best-classified classes are Plastic, Metal, Paper and Vegetation** show very high correct predictions with minimal confusion. Main confusions occur between similar materials such as Plastic vs Metal. Miscellaneous Trash is frequently confused with Plastic, Metal, and Textile Trash.
+
+<img width="465" height="445" alt="image" src="https://github.com/user-attachments/assets/6ba7417e-c293-414d-8fd8-2f60b8d72412" />
+
+**<ins>Detailed Evaluation Results with varied models and settings:</ins>**
 
 **Model: Resnet18, Optimizer: Adam, Batch Size: 32, Learning Rate: 0.001,  Number of Epochs: 10:**
 
@@ -307,4 +389,5 @@ Accuracy: 0.7899
 Precision: 0.7910
 Recall: 0.7899
 F1_score: 0.7890
+
 
