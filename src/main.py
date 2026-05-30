@@ -53,6 +53,7 @@ model = model.to(device)
 criterion = get_loss_function()
 optimizer = get_optimizer(model, optimizer_name="adam", lr=0.001)
 #optimizer = get_optimizer(model, optimizer_name="sgd", lr=0.001)
+#optimizer = get_optimizer(model, optimizer_name="sgd", lr=0.01) #only with efficientnet_b0
 
 
 ######### train #######
