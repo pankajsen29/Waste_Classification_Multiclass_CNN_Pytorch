@@ -6,10 +6,11 @@
 # - computes softmax probabilities
 # - returns ALL confidence scores
 #
-# - example json return:
+# - return dictionary:
 # {
 #   "predicted_class": "Plastic",
-#   "scores": {
+#   "scores": 
+#   {
 #     "Plastic": 0.91,
 #     "Paper": 0.04,
 #     "Glass": 0.03,

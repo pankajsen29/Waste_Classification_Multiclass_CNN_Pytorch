@@ -1,3 +1,18 @@
+#############################################################
+# json return:
+# {
+#   "image": "iamge_01.jpg",
+#   "predicted_class": "Plastic",
+#   "scores": 
+#   {
+#     "Plastic": 0.91,
+#     "Paper": 0.04,
+#     "Glass": 0.03,
+#     "Metal": 0.02
+#   }
+# }
+##############################################################
+
 from fastapi import FastAPI, UploadFile, File, HTTPException
 # import uvicorn
 from PIL import Image
@@ -33,6 +48,11 @@ async def predict(file: UploadFile = File(...)):
 
         # run inference
         result = predict_image(image)
+
+        result = {
+            "image": file.filename,
+            **result
+            }
 
         return result
 
