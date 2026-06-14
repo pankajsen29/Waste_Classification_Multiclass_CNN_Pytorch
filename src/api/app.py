@@ -1,14 +1,19 @@
 #############################################################
 # json return:
 # {
-#   "image": "iamge_01.jpg",
+#   "image": "train/plastic/image_01.jpg",
 #   "predicted_class": "Plastic",
 #   "scores": 
 #   {
-#     "Plastic": 0.91,
-#     "Paper": 0.04,
-#     "Glass": 0.03,
-#     "Metal": 0.02
+#      "Cardboard": 0.9753, 
+#      "Food Organics": 0.0003, 
+#      "Glass": 0.0003, 
+#      "Metal": 0.0015, 
+#      "Miscellaneous Trash": 0.0021, 
+#      "Paper": 0.0153, 
+#      "Plastic": 0.0004, 
+#      "Textile Trash": 0.003, 
+#      "Vegetation": 0.0018
 #   }
 # }
 ##############################################################
@@ -20,12 +25,12 @@ import io
 from src.inference.predict import predict_image
 
 # creates the FastAPI application object, it does not run a server.
-app = FastAPI(title="Waste Classification API")
+app = FastAPI(title="Waste Classification Model API")
 
 
 @app.get("/")
 def home():
-    return {"message": "Waste Classification API Running"}
+    return {"message": "Waste Classification Model API Running"}
 
 
 @app.post("/predict")
