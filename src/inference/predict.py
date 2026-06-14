@@ -11,10 +11,15 @@
 #   "predicted_class": "Plastic",
 #   "scores": 
 #   {
-#     "Plastic": 0.91,
-#     "Paper": 0.04,
-#     "Glass": 0.03,
-#     "Metal": 0.02
+#      "Cardboard": 0.9753, 
+#      "Food Organics": 0.0003, 
+#      "Glass": 0.0003, 
+#      "Metal": 0.0015, 
+#      "Miscellaneous Trash": 0.0021, 
+#      "Paper": 0.0153, 
+#      "Plastic": 0.0004, 
+#      "Textile Trash": 0.003, 
+#      "Vegetation": 0.0018
 #   }
 # }
 #####################################################

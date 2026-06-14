@@ -10,7 +10,9 @@
             "module": "uvicorn",
             "args": [
                 "src.api.app:app",
-                "--reload"
+                "--reload",
+                "--port",
+                "8000"
             ],
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
