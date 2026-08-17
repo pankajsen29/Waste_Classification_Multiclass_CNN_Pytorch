@@ -75,7 +75,9 @@ def train_model(
     val_loader,
     criterion,
     optimizer,
+    class_names,
     device,
+    save_model_file,
     num_epochs=20
 ):
     history = {
@@ -84,6 +86,8 @@ def train_model(
         "val_loss": [],
         "val_acc": []
     }
+
+    best_val_loss = float("inf")
 
     for epoch in range(num_epochs):
         print(f"\nEpoch [{epoch + 1}/{num_epochs}]")
@@ -111,22 +115,27 @@ def train_model(
         print(f"Train Loss: {train_loss:.4f} | Train Acc: {train_acc:.4f} "
             f"|| Val Loss: {val_loss:.4f} | Val Acc: {val_acc:.4f}")
 
+        if save_model_file is not None:  # Only save if a path is provided (not saved during hyperparameter tuning)
+            if val_loss < best_val_loss:
+                best_val_loss = val_loss                  
+                save_trained_model(model, optimizer, class_names, save_model_file) #save trained model weights for best val loss
+                print(f"best_validation_loss: {best_val_loss}")   
+                print(f"Model is saved as current_validation_loss < best_validation_loss")  
+            else:
+                print(f"Model is not saved as current_validation_loss > best_validation_loss") 
+            
     return model, history
 
-
-def save_trained_model(model, optimizer, history, filepath):
+def save_trained_model(model, optimizer, class_names, filepath):
     torch.save({
     "model": model.state_dict(),
     "optimizer": optimizer.state_dict(),
-    "history": history
+    "class_names": class_names
 }, filepath)
 
-def load_trained_model(model, filepath):
-    checkpoint = torch.load(filepath)
-    model_state_dict = checkpoint["model"]
-    model.load_state_dict(model_state_dict)
-    history = checkpoint["history"]
-    return model, history
+def load_model_checkpoint(filepath, device):
+    model_checkpoint = torch.load(filepath, map_location=device)
+    return model_checkpoint
 
 #TESTCODE
 #dummy training function, it confirms:

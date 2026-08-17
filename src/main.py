@@ -58,9 +58,8 @@ optimizer = get_optimizer(model, optimizer_name="adam", lr=0.001)
 
 ######### train #######
 from src.train import (
-    train_model, 
-    save_trained_model,
-    load_trained_model,
+    train_model,
+    load_model_checkpoint,
     dummy_training1, 
     dummy_training2,
     test_one_training_step
@@ -81,10 +80,21 @@ from src.train import (
 from pathlib import Path
 save_dir = Path("checkpoints")
 save_dir.mkdir(parents=True, exist_ok=True)
+save_model_file = save_dir / "waste_seg_full_training_state.pth"
+train_history_json = save_dir / "waste_seg_training_history.json"
 
 if DEBUG:
-    #existing model needs to passed, to load the saved weights from disc
-    model, history = load_trained_model(model, save_dir / "waste_seg_full_training_state.pth")
+    # 1. load checkpoint first
+    checkpoint = load_model_checkpoint(save_model_file, device)
+
+    # 2. load trained weights
+    model.load_state_dict(checkpoint["model"])
+    class_names = checkpoint["class_names"]
+    optimizer = checkpoint["optimizer"]
+    
+    # 3. loading the history from json
+    with open(train_history_json, "r") as f:
+        history = json.load(f)
 
 else:
     model, history = train_model(
@@ -93,20 +103,21 @@ else:
         val_loader,
         criterion,
         optimizer,
+        class_names,
         device,
+        save_model_file,
         num_epochs=NUM_EPOCHS
     )
 
-    #saving trained model weights
-    save_trained_model(model, optimizer, history, save_dir / "waste_seg_full_training_state.pth")
+    #saving trained model weights is done during training based on best validation loss
 
     #saving the history to json
     import json    
-    with open(save_dir / "waste_seg_history.json", "w") as f:
+    with open(train_history_json, "w") as f:
         json.dump(history, f)
 
     #loading the history from json
-    with open(save_dir / "waste_seg_history.json", "r") as f:
+    with open(train_history_json, "r") as f:
         history = json.load(f)
 
 
@@ -130,7 +141,7 @@ results = hyperparameter_search(
     train_loader=train_loader,
     val_loader=val_loader,
     device=device,
-    num_classes=num_classes,
+    class_names=class_names,
     learning_rates=[1e-4, 1e-3, 1e-2, 1e-1], #[0.0001, 0.001, 0.01, 0.1]
     batch_sizes=[16, 32],
     num_epochs=5

@@ -1,8 +1,7 @@
-#####################################################
+############################################
 # Inference Step 1: 
-# - defines image preprocessing transform and 
-# - provides class information of the trained dataset
-#####################################################
+# - defines image preprocessing transform
+############################################
 
 from torchvision import transforms
 from torchvision import datasets
@@ -20,18 +19,3 @@ inference_transforms = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize(IMAGENET_MEAN, IMAGENET_STD)
 ])
-
-def get_class_info():       
-        
-        # Load full dataset
-        full_dataset = datasets.ImageFolder(root=DATA_DIR, transform=inference_transforms)
-        
-        #Check class mapping
-        #index assignment to each class folder is based on the alphabetical order of folder names
-        #print(full_dataset.class_to_idx) 
-
-        # ---- Class information (EXPOSED) ----
-        class_names = full_dataset.classes
-        num_classes = len(class_names)
-
-        return class_names, num_classes
