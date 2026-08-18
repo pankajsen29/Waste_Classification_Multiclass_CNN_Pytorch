@@ -1,4 +1,4 @@
-
+import src.config as cfg
 DEBUG = True
 
 if DEBUG:
@@ -20,7 +20,6 @@ else:
     # NUM_WORKERS = 2
 
 
-
 ######## dataset ######
 from src.dataset import get_dataloaders
 
@@ -34,7 +33,6 @@ print(images.shape, labels.shape)
 #lables=targets for that batch
 
 
-
 ######## model #########
 from src.model import (
     get_model,
@@ -44,19 +42,15 @@ from src.model import (
 )
 
 device = get_device()
-model = get_model("resnet18", num_classes) #primary - main CNN result
-#model = get_model("resnet34", num_classes) #baseline
-#model = get_model("efficientnet_b0", num_classes) #best final model
+model = get_model(cfg.MODEL_NAME, num_classes)
 model = model.to(device)
 
 #note-loss and optimizer are useless unless training
 criterion = get_loss_function()
-optimizer = get_optimizer(model, optimizer_name="adam", lr=0.001)
-#optimizer = get_optimizer(model, optimizer_name="sgd", lr=0.001)
-#optimizer = get_optimizer(model, optimizer_name="sgd", lr=0.01) #only with efficientnet_b0
-
+optimizer = get_optimizer(model, optimizer_name=cfg.OPTIMIZER_NAME, lr=cfg.LEARNING_RATE)
 
 ######### train #######
+import json
 from src.train import (
     train_model,
     load_model_checkpoint,
@@ -75,17 +69,9 @@ from src.train import (
 #TESTCODE
 #test_one_training_step(model, images, labels, optimizer, criterion)
 
-
-#for saving the model state
-from pathlib import Path
-save_dir = Path("checkpoints")
-save_dir.mkdir(parents=True, exist_ok=True)
-save_model_file = save_dir / "waste_seg_full_training_state.pth"
-train_history_json = save_dir / "waste_seg_training_history.json"
-
 if DEBUG:
     # 1. load checkpoint first
-    checkpoint = load_model_checkpoint(save_model_file, device)
+    checkpoint = load_model_checkpoint(cfg.MODEL_CHECKPOINT_FILE, device)
 
     # 2. load trained weights
     model.load_state_dict(checkpoint["model"])
@@ -93,7 +79,7 @@ if DEBUG:
     optimizer = checkpoint["optimizer"]
     
     # 3. loading the history from json
-    with open(train_history_json, "r") as f:
+    with open(cfg.TRAINING_HISTORY_JSON, "r") as f:
         history = json.load(f)
 
 else:
@@ -105,19 +91,18 @@ else:
         optimizer,
         class_names,
         device,
-        save_model_file,
+        cfg.MODEL_CHECKPOINT_FILE,
         num_epochs=NUM_EPOCHS
     )
 
     #saving trained model weights is done during training based on best validation loss
 
-    #saving the history to json
-    import json    
-    with open(train_history_json, "w") as f:
+    #saving the history to json    
+    with open(cfg.TRAINING_HISTORY_JSON, "w") as f:
         json.dump(history, f)
 
     #loading the history from json
-    with open(train_history_json, "r") as f:
+    with open(cfg.TRAINING_HISTORY_JSON, "r") as f:
         history = json.load(f)
 
 

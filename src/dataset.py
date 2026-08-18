@@ -1,17 +1,10 @@
 #########################################
 # Step 1: Dataset loading in PyTorch
 #########################################
-import os
+import src.config as cfg
 import torch
 from torch.utils.data import DataLoader, random_split
 from torchvision import datasets, transforms
-
-DATA_DIR = "data/RealWaste"
-
-#ImageNet normalization (mandatory for pretrained models)
-IMAGENET_MEAN = [0.485, 0.456, 0.406]
-IMAGENET_STD  = [0.229, 0.224, 0.225]
-
 
 #training transforms (with augmentation)
 train_transforms = transforms.Compose([
@@ -24,14 +17,14 @@ train_transforms = transforms.Compose([
         saturation=0.2
     ),
     transforms.ToTensor(),
-    transforms.Normalize(IMAGENET_MEAN, IMAGENET_STD)
+    transforms.Normalize(cfg.IMAGENET_MEAN, cfg.IMAGENET_STD)
 ])
 
 #Validation / Test transforms (NO augmentation, only resize + normalize)
 test_transforms = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(),
-    transforms.Normalize(IMAGENET_MEAN, IMAGENET_STD)
+    transforms.Normalize(cfg.IMAGENET_MEAN, cfg.IMAGENET_STD)
 ])
 
 def get_dataloaders(batch_size=16, num_workers=2, seed=42):       
@@ -41,7 +34,7 @@ def get_dataloaders(batch_size=16, num_workers=2, seed=42):
         """
 
         # Load full dataset
-        full_dataset = datasets.ImageFolder(root=DATA_DIR, transform=train_transforms)
+        full_dataset = datasets.ImageFolder(root=cfg.DATA_DIR, transform=train_transforms)
         
         #Check class mapping
         #index assignment to each class folder is based on the alphabetical order of folder names

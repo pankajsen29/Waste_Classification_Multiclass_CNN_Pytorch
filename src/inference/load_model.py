@@ -3,19 +3,19 @@
 # - loads the model from saved checkpoint and 
 # - changes to evaluation mode
 #####################################################
-from pathlib import Path
+
 from src.model import (
     get_model,
     get_device
 )
 from src.train import load_model_checkpoint
+import src.config as cfg
 
 def load_model():
     device = get_device()
-    checkpoint_path = Path("checkpoints") / "waste_seg_full_training_state.pth"
 
     # 1. load checkpoint first
-    checkpoint = load_model_checkpoint(checkpoint_path, device)
+    checkpoint = load_model_checkpoint(cfg.MODEL_CHECKPOINT_FILE, device)
 
     # 2. read class information from checkpoint
     class_names = checkpoint["class_names"] # class_names = ['Cardboard', 'Food Organics', 'Glass', 'Metal', 'Miscellaneous Trash', 'Paper', 'Plastic', 'Textile Trash', 'Vegetation']
@@ -24,9 +24,7 @@ def load_model():
     print(f"Number of classes: {num_classes}")
 
     # 3. create model with correct number of outputs
-    model = get_model("resnet18", num_classes) #primary - main CNN result
-    #model = get_model("resnet34", num_classes) #baseline
-    #model = get_model("efficientnet_b0", num_classes) #best final model
+    model = get_model(cfg.MODEL_NAME, num_classes)
     
     # 4. load trained weights
     model.load_state_dict(checkpoint["model"])

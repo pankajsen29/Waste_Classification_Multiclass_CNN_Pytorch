@@ -4,7 +4,7 @@
 
 from src.model import get_model, get_loss_function, get_optimizer
 from src.train import train_model
-
+import src.config as cfg
 
 def hyperparameter_search(
     train_loader,
@@ -21,13 +21,9 @@ def hyperparameter_search(
         for batch_size in batch_sizes:
             print(f"\nTesting lr={lr}, batch_size={batch_size}")
 
-            #model = get_model("resnet18", len(class_names)).to(device) #baseline(initial)
-            model = get_model("resnet34", len(class_names)) #main CNN result(initial)
-            #model = get_model("efficientnet_b0", len(class_names)) #best final model(initial)
-
+            model = get_model(cfg.MODEL_NAME, len(class_names))
             criterion = get_loss_function()
-            #optimizer = get_optimizer(model, optimizer_name="sgd", lr=lr)
-            optimizer = get_optimizer(model, optimizer_name="adam", lr=lr)
+            optimizer = get_optimizer(model, optimizer_name=cfg.OPTIMIZER_NAME, lr=lr)
 
             model, history = train_model(
                 model,
