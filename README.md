@@ -100,170 +100,159 @@ The model training and validation are performed on a **local machine (with CPU) 
 
 **<ins>Detailed Training Results with varied models and settings:</ins>**
 
-**Model: Resnet18, Optimizer: Adam, Batch Size: 32, Learning Rate: 0.001,  Number of Epochs: 10:**
+**Model: Resnet18, Loss Function: CrossEntropyLoss, Optimizer: Adam, Learning Rate: 0.001, Batch Size: 32,  Number of Epochs: 10:**
 
 Epoch [1/10]
-Train Loss: 1.4875 | Train Acc: 0.5105 || Val Loss: 1.0609 | Val Acc: 0.6685
+Train Loss: 1.4937 | Train Acc: 0.4913 || Val Loss: 1.0803 | Val Acc: 0.6615
+best_validation_loss: 1.0803251936194602
+Model is saved as current_validation_loss < best_validation_loss
 
 Epoch [2/10]
-Train Loss: 0.9183 | Train Acc: 0.7060 || Val Loss: 0.8947 | Val Acc: 0.6896
+Train Loss: 0.9288 | Train Acc: 0.7114 || Val Loss: 0.8811 | Val Acc: 0.6980
+best_validation_loss: 0.8810884162281336
+Model is saved as current_validation_loss < best_validation_loss
 
 Epoch [3/10]
-Train Loss: 0.7671 | Train Acc: 0.7589 || Val Loss: 0.7970 | Val Acc: 0.7275
+Train Loss: 0.7808 | Train Acc: 0.7559 || Val Loss: 0.7916 | Val Acc: 0.7219
+best_validation_loss: 0.7915926622540763
+Model is saved as current_validation_loss < best_validation_loss
 
 Epoch [4/10]
-Train Loss: 0.7090 | Train Acc: 0.7733 || Val Loss: 0.7780 | Val Acc: 0.7289
+Train Loss: 0.7050 | Train Acc: 0.7721 || Val Loss: 0.7349 | Val Acc: 0.7472
+best_validation_loss: 0.7349245836225788
+Model is saved as current_validation_loss < best_validation_loss
 
 Epoch [5/10]
-Train Loss: 0.6497 | Train Acc: 0.7886 || Val Loss: 0.7384 | Val Acc: 0.7486
+Train Loss: 0.6571 | Train Acc: 0.7874 || Val Loss: 0.7703 | Val Acc: 0.7317
+Model is not saved as current_validation_loss > best_validation_loss
 
 Epoch [6/10]
-Train Loss: 0.6210 | Train Acc: 0.7949 || Val Loss: 0.7083 | Val Acc: 0.7486
+Train Loss: 0.6154 | Train Acc: 0.8007 || Val Loss: 0.6862 | Val Acc: 0.7626
+best_validation_loss: 0.6862277180961008
+Model is saved as current_validation_loss < best_validation_loss
 
 Epoch [7/10]
-Train Loss: 0.5885 | Train Acc: 0.8073 || Val Loss: 0.6725 | Val Acc: 0.7711
+Train Loss: 0.5725 | Train Acc: 0.8106 || Val Loss: 0.6740 | Val Acc: 0.7640
+best_validation_loss: 0.6739812580387244
+Model is saved as current_validation_loss < best_validation_loss
 
 Epoch [8/10]
-Train Loss: 0.5578 | Train Acc: 0.8184 || Val Loss: 0.6601 | Val Acc: 0.7711
+Train Loss: 0.5455 | Train Acc: 0.8187 || Val Loss: 0.6590 | Val Acc: 0.7654
+best_validation_loss: 0.6589605902018172
+Model is saved as current_validation_loss < best_validation_loss
 
 Epoch [9/10]
-Train Loss: 0.5399 | Train Acc: 0.8286 || Val Loss: 0.6684 | Val Acc: 0.7669
+Train Loss: 0.5282 | Train Acc: 0.8343 || Val Loss: 0.6560 | Val Acc: 0.7640
+best_validation_loss: 0.6559866814131148
+Model is saved as current_validation_loss < best_validation_loss
 
 Epoch [10/10]
-Train Loss: 0.5217 | Train Acc: 0.8307 || Val Loss: 0.6453 | Val Acc: 0.7809
+Train Loss: 0.5189 | Train Acc: 0.8262 || Val Loss: 0.6306 | Val Acc: 0.7640
+best_validation_loss: 0.630587631397033
+Model is saved as current_validation_loss < best_validation_loss
 
 
-
-**Model: Resnet34, Optimizer: Adam, Batch Size: 32, Learning Rate: 0.001,  Number of Epochs: 10:**
+**Model: Resnet34, Loss Function: CrossEntropyLoss, Optimizer: Adam, Learning Rate: 0.001, Batch Size: 32,  Number of Epochs: 10:**
 
 Epoch [1/10]
-Train Loss: 1.5161 | Train Acc: 0.4838 || Val Loss: 1.0724 | Val Acc: 0.6559
+Train Loss: 1.5332 | Train Acc: 0.4895 || Val Loss: 1.0696 | Val Acc: 0.6531
+best_validation_loss: 1.069615248883708
+Model is saved as current_validation_loss < best_validation_loss
 
 Epoch [2/10]
-Train Loss: 0.9527 | Train Acc: 0.7014 || Val Loss: 0.8885 | Val Acc: 0.7205
+Train Loss: 0.9598 | Train Acc: 0.6996 || Val Loss: 0.8806 | Val Acc: 0.7135
+best_validation_loss: 0.8806129305550222
+Model is saved as current_validation_loss < best_validation_loss
 
 Epoch [3/10]
-Train Loss: 0.8055 | Train Acc: 0.7408 || Val Loss: 0.7935 | Val Acc: 0.7430
+Train Loss: 0.8157 | Train Acc: 0.7372 || Val Loss: 0.7704 | Val Acc: 0.7261
+best_validation_loss: 0.7703757634323635
+Model is saved as current_validation_loss < best_validation_loss
 
 Epoch [4/10]
-Train Loss: 0.7289 | Train Acc: 0.7565 || Val Loss: 0.7362 | Val Acc: 0.7542
+Train Loss: 0.7365 | Train Acc: 0.7616 || Val Loss: 0.7226 | Val Acc: 0.7626
+best_validation_loss: 0.7225896776392219
+Model is saved as current_validation_loss < best_validation_loss
 
 Epoch [5/10]
-Train Loss: 0.6668 | Train Acc: 0.7874 || Val Loss: 0.7131 | Val Acc: 0.7514
+Train Loss: 0.6755 | Train Acc: 0.7892 || Val Loss: 0.7275 | Val Acc: 0.7542
+Model is not saved as current_validation_loss > best_validation_loss
 
 Epoch [6/10]
-Train Loss: 0.6355 | Train Acc: 0.7916 || Val Loss: 0.6835 | Val Acc: 0.7711
+Train Loss: 0.6286 | Train Acc: 0.7968 || Val Loss: 0.6656 | Val Acc: 0.7669
+best_validation_loss: 0.6655583863847712
+Model is saved as current_validation_loss < best_validation_loss
 
 Epoch [7/10]
-Train Loss: 0.5966 | Train Acc: 0.8070 || Val Loss: 0.6797 | Val Acc: 0.7626
+Train Loss: 0.6107 | Train Acc: 0.7971 || Val Loss: 0.7225 | Val Acc: 0.7514
+Model is not saved as current_validation_loss > best_validation_loss
 
 Epoch [8/10]
-Train Loss: 0.5753 | Train Acc: 0.8112 || Val Loss: 0.6353 | Val Acc: 0.7893
+Train Loss: 0.5752 | Train Acc: 0.8133 || Val Loss: 0.6857 | Val Acc: 0.7640
+Model is not saved as current_validation_loss > best_validation_loss
 
 Epoch [9/10]
-Train Loss: 0.5539 | Train Acc: 0.8154 || Val Loss: 0.6399 | Val Acc: 0.7725
+Train Loss: 0.5614 | Train Acc: 0.8163 || Val Loss: 0.6528 | Val Acc: 0.7626
+best_validation_loss: 0.6528183472960183
+Model is saved as current_validation_loss < best_validation_loss
 
 Epoch [10/10]
-Train Loss: 0.5388 | Train Acc: 0.8235 || Val Loss: 0.6349 | Val Acc: 0.7739
+Train Loss: 0.5411 | Train Acc: 0.8163 || Val Loss: 0.6327 | Val Acc: 0.7795
+best_validation_loss: 0.6327434115195543
+Model is saved as current_validation_loss < best_validation_loss
 
 
-**Model: Resnet18, Optimizer: SGD, Batch Size: 32, Learning Rate: 0.001,  Number of Epochs: 10:**
+**Model: EfficientNet-B0, Loss Function: CrossEntropyLoss, Optimizer: SGD, Learning Rate: 0.001, Batch Size: 32,  Number of Epochs: 10:**
 
 Epoch [1/10]
-Train Loss: 1.6352 | Train Acc: 0.4447 || Val Loss: 1.2033 | Val Acc: 0.6250
+Train Loss: 1.9358 | Train Acc: 0.3416 || Val Loss: 1.6198 | Val Acc: 0.5632
+best_validation_loss: 1.6198275531275887
+Model is saved as current_validation_loss < best_validation_loss
 
 Epoch [2/10]
-Train Loss: 1.0579 | Train Acc: 0.6795 || Val Loss: 1.0016 | Val Acc: 0.6615
+Train Loss: 1.5127 | Train Acc: 0.5842 || Val Loss: 1.3392 | Val Acc: 0.6517
+best_validation_loss: 1.339184179734648
+Model is saved as current_validation_loss < best_validation_loss
 
 Epoch [3/10]
-Train Loss: 0.8972 | Train Acc: 0.7225 || Val Loss: 0.9109 | Val Acc: 0.7079
+Train Loss: 1.2898 | Train Acc: 0.6590 || Val Loss: 1.1654 | Val Acc: 0.6840
+best_validation_loss: 1.1654265301950861
+Model is saved as current_validation_loss < best_validation_loss
 
 Epoch [4/10]
-Train Loss: 0.8099 | Train Acc: 0.7495 || Val Loss: 0.8346 | Val Acc: 0.7022
+Train Loss: 1.1462 | Train Acc: 0.6876 || Val Loss: 1.0779 | Val Acc: 0.6924
+best_validation_loss: 1.0779404533043335
+Model is saved as current_validation_loss < best_validation_loss
 
 Epoch [5/10]
-Train Loss: 0.7521 | Train Acc: 0.7619 || Val Loss: 0.8015 | Val Acc: 0.7402
+Train Loss: 1.0662 | Train Acc: 0.7023 || Val Loss: 0.9970 | Val Acc: 0.7107
+best_validation_loss: 0.9969612185874682
+Model is saved as current_validation_loss < best_validation_loss
 
 Epoch [6/10]
-Train Loss: 0.7069 | Train Acc: 0.7739 || Val Loss: 0.7677 | Val Acc: 0.7458
+Train Loss: 0.9990 | Train Acc: 0.7159 || Val Loss: 0.9389 | Val Acc: 0.7149
+best_validation_loss: 0.9389405960447332
+Model is saved as current_validation_loss < best_validation_loss
 
 Epoch [7/10]
-Train Loss: 0.6825 | Train Acc: 0.7856 || Val Loss: 0.7444 | Val Acc: 0.7416
+Train Loss: 0.9399 | Train Acc: 0.7279 || Val Loss: 0.9047 | Val Acc: 0.7191
+best_validation_loss: 0.9047398312707965
+Model is saved as current_validation_loss < best_validation_loss
 
 Epoch [8/10]
-Train Loss: 0.6442 | Train Acc: 0.7946 || Val Loss: 0.7207 | Val Acc: 0.7472
+Train Loss: 0.8996 | Train Acc: 0.7495 || Val Loss: 0.8840 | Val Acc: 0.7233
+best_validation_loss: 0.8839732984478554
+Model is saved as current_validation_loss < best_validation_loss
 
 Epoch [9/10]
-Train Loss: 0.6276 | Train Acc: 0.7913 || Val Loss: 0.7023 | Val Acc: 0.7598
+Train Loss: 0.8671 | Train Acc: 0.7511 || Val Loss: 0.8565 | Val Acc: 0.7360
+best_validation_loss: 0.8564854445082418
+Model is saved as current_validation_loss < best_validation_loss
 
 Epoch [10/10]
-Train Loss: 0.6086 | Train Acc: 0.8010 || Val Loss: 0.6934 | Val Acc: 0.7626
-
-
-**Model: Resnet34, Optimizer: SGD, Batch Size: 32, Learning Rate: 0.001,  Number of Epochs: 10:**
-
-Epoch [1/10]
-Train Loss: 1.6471 | Train Acc: 0.4465 || Val Loss: 1.1980 | Val Acc: 0.6194
-
-Epoch [2/10]
-Train Loss: 1.0852 | Train Acc: 0.6575 || Val Loss: 0.9555 | Val Acc: 0.7065
-
-Epoch [3/10]
-Train Loss: 0.9140 | Train Acc: 0.7186 || Val Loss: 0.8672 | Val Acc: 0.7079
-
-Epoch [4/10]
-Train Loss: 0.8110 | Train Acc: 0.7474 || Val Loss: 0.8150 | Val Acc: 0.7388
-
-Epoch [5/10]
-Train Loss: 0.7553 | Train Acc: 0.7631 || Val Loss: 0.7703 | Val Acc: 0.7458
-
-Epoch [6/10]
-Train Loss: 0.7125 | Train Acc: 0.7808 || Val Loss: 0.7471 | Val Acc: 0.7346
-
-Epoch [7/10]
-Train Loss: 0.6902 | Train Acc: 0.7715 || Val Loss: 0.7138 | Val Acc: 0.7542
-
-Epoch [8/10]
-Train Loss: 0.6637 | Train Acc: 0.7868 || Val Loss: 0.7103 | Val Acc: 0.7486
-
-Epoch [9/10]
-Train Loss: 0.6376 | Train Acc: 0.7946 || Val Loss: 0.6933 | Val Acc: 0.7683
-
-Epoch [10/10]
-Train Loss: 0.6263 | Train Acc: 0.8001 || Val Loss: 0.6761 | Val Acc: 0.7640
-
-
-**Model: EfficientNet-B0, Optimizer: SGD, Batch Size: 32, Learning Rate: 0.001,  Number of Epochs: 10:**
-
-Epoch [1/10]
-Train Loss: 1.2779 | Train Acc: 0.5884 || Val Loss: 0.8364 | Val Acc: 0.7416
-
-Epoch [2/10]
-Train Loss: 0.8042 | Train Acc: 0.7444 || Val Loss: 0.7096 | Val Acc: 0.7654
-
-Epoch [3/10]
-Train Loss: 0.6783 | Train Acc: 0.7847 || Val Loss: 0.6610 | Val Acc: 0.7781
-
-Epoch [4/10]
-Train Loss: 0.6201 | Train Acc: 0.7940 || Val Loss: 0.6338 | Val Acc: 0.7893
-
-Epoch [5/10]
-Train Loss: 0.5606 | Train Acc: 0.8199 || Val Loss: 0.6179 | Val Acc: 0.7837
-
-Epoch [6/10]
-Train Loss: 0.5618 | Train Acc: 0.8202 || Val Loss: 0.5950 | Val Acc: 0.7879
-
-Epoch [7/10]
-Train Loss: 0.5154 | Train Acc: 0.8310 || Val Loss: 0.5694 | Val Acc: 0.8020
-
-Epoch [8/10]
-Train Loss: 0.4972 | Train Acc: 0.8331 || Val Loss: 0.5692 | Val Acc: 0.7992
-
-Epoch [9/10]
-Train Loss: 0.4882 | Train Acc: 0.8322 || Val Loss: 0.5493 | Val Acc: 0.8118
-
-Epoch [10/10]
-Train Loss: 0.4818 | Train Acc: 0.8391 || Val Loss: 0.5536 | Val Acc: 0.8048
+Train Loss: 0.8388 | Train Acc: 0.7517 || Val Loss: 0.8273 | Val Acc: 0.7317
+best_validation_loss: 0.8273013126984071
+Model is saved as current_validation_loss < best_validation_loss
 
 
 # EXPERIMENT RESULTS PLOTTING
@@ -422,7 +411,7 @@ Alternative link: https://github.com/sam-single/realwaste
 
 **Trained Models:**
 
-https://drive.google.com/drive/folders/1SIucKwq8YQzus_ybRob19HOHWgbNF05-?usp=drive_link
+Trained models can be found inside project's "checkpoints" folder.
 
 
 # REFERENCES
